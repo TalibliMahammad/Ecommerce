@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-custom: 1190px;
+  --breakpoint-3xl: 1390px;
+  --color-brand: #10b981;
+  --color-brand-dark: #059669;
+  --color-accent: #06b6d4;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply antialiased text-gray-900;
+}
+
+::selection {
+  @apply bg-emerald-200 text-gray-900;
+}
+
+/* Focus ring for accessibility */
+*:focus-visible {
+  @apply outline-none ring-2 ring-emerald-500 ring-offset-2;
+}
+
+/* Section title strip (red bar + label) */
+.section-label {
+  @apply flex flex-col-reverse lg:flex-row items-center gap-0 lg:gap-3 font-bold text-gray-900;
+}
+.section-label-bar {
+  @apply rotate-90 lg:rotate-0 bg-gradient-to-b from-red-500 to-red-600 rounded-full h-10 w-2 shrink-0;
+}
+
+/* Custom Swiper styles */
+.mySwiper .swiper-pagination {
+  bottom: 20px !important;
+}
+
+.mySwiper .swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0 4px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease !important;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  background: #ffffff !important;
+  transform: scale(1.2) !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+}
+
+
+
