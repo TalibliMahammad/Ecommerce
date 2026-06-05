@@ -163,9 +163,7 @@ const WomanDressSection = () => {
 
                                 <img loading="lazy" className="max-h-full max-w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105" src={item.images?.[0]?.trim() || 'https://via.placeholder.com/300x300?text=No+Image'} alt={item.name || "Product"} />
 
-                                <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-[88%] lg:left-0 lg:transform-none lg:translate-x-0 lg:w-full lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-auto">
-                                    <CartButton item={item} />
-                                </div>
+                               
                             </div>
 
                             <div className="p-3 flex flex-col gap-1">
@@ -179,6 +177,10 @@ const WomanDressSection = () => {
                                         {item.rating} {getStars(item.rating || 0)}
                                     </span>
                                 </div>
+                                
+                                <div className="absolute bottom-2 right-2 z-10">
+                                                        <CartButton item={item} />
+                                                      </div>
                             </div>
 
                         </div>

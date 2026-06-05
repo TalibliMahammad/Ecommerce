@@ -16,23 +16,23 @@ import { useParams } from 'react-router-dom';
 export default function HomeSlider() {
   const Laptops = useSelector(state => state.fetchData.data.Electronics?.Laptop) || []
 
-  const forPromotionImages = [
-    "../../assets/Promo/1dad9da122a349a14f94094712946d3c.jpg",
-    "../../assets/Promo/lack-friday-sale-social-media-banner-design-template_47987-24589.jpg",
-    "../../assets/Promo/2bdbe56056e0c75b6cf3938a6911141a.jpg",
-    "../../assets/Promo/7274f34d6a776f5d4208ef4a145a8b08.jpg",
-    "../../assets/Promo/a1fea360e3557739b3275c15e97b13ad.jpg",
-    "../../assets/Promo/b945d1c21541e8493c012de14750ec50.jpg",
-    "../../assets/Promo/e7f38e4bb49d0ac977970c38d92c012a.png",
-    "../../assets/Promo/e476a698096dfcfecdcdd0eba4e7b7ed.jpg",
-    "../../assets/Promo/1dad9da122a349a14f94094712946d3c.jpg",
-    "../../assets/Promo/guided_tour__dna6wcz8ieie_xlarge.jpg",
-    "../../assets/Promo/iphone__kqge21l9n26q_og.png",
-    "../../assets/Promo/lenovo-smart-ai.jpg",
-    "../../assets/Promo/modal_power__b0obhiao9aeq_large.jpg",
-    "../../assets/Promo/ora8hzqjeukmwnnb-0_0_desktop_0_1X.webp",
-    "../../assets/Promo/t9ygtye7iprqw6ei-0_0_desktop_0_1X.webp"
-  ]
+  // const forPromotionImages = [
+  //   "../../assets/Promo/1dad9da122a349a14f94094712946d3c.jpg",
+  //   "../../assets/Promo/lack-friday-sale-social-media-banner-design-template_47987-24589.jpg",
+  //   "../../assets/Promo/2bdbe56056e0c75b6cf3938a6911141a.jpg",
+  //   "../../assets/Promo/7274f34d6a776f5d4208ef4a145a8b08.jpg",
+  //   "../../assets/Promo/a1fea360e3557739b3275c15e97b13ad.jpg",
+  //   "../../assets/Promo/b945d1c21541e8493c012de14750ec50.jpg",
+  //   "../../assets/Promo/e7f38e4bb49d0ac977970c38d92c012a.png",
+  //   "../../assets/Promo/e476a698096dfcfecdcdd0eba4e7b7ed.jpg",
+  //   "../../assets/Promo/1dad9da122a349a14f94094712946d3c.jpg",
+  //   "../../assets/Promo/guided_tour__dna6wcz8ieie_xlarge.jpg",
+  //   "../../assets/Promo/iphone__kqge21l9n26q_og.png",
+  //   "../../assets/Promo/lenovo-smart-ai.jpg",
+  //   "../../assets/Promo/modal_power__b0obhiao9aeq_large.jpg",
+  //   "../../assets/Promo/ora8hzqjeukmwnnb-0_0_desktop_0_1X.webp",
+  //   "../../assets/Promo/t9ygtye7iprqw6ei-0_0_desktop_0_1X.webp"
+  // ]
 
   
   const {categoryKey , subItem } = useParams()
@@ -231,23 +231,67 @@ const mainKey = Object.keys(categoryImages).find(
 
   const promotionalSlides = [
     {
-      image: "/Promo/1dad9da122a349a14f94094712946d3c.jpg",
+      image: "/src/assets/Promo/1dad9da122a349a14f94094712946d3c.jpg",
       title: "Summer Sale",
       subtitle: "Up to 70% Off",
       buttonText: "Shop Now"
     },
     {
-      image: "/Promo/lack-friday-sale-social-media-banner-design-template_47987-24589.jpg",
+      image: "/src/assets/Promo/lack-friday-sale-social-media-banner-design-template_47987-24589.jpg",
       title: "Black Friday",
       subtitle: "Exclusive Deals",
       buttonText: "Discover"
     },
     {
-      image: "/Promo/2bdbe56056e0c75b6cf3938a6911141a.jpg",
+      image: "/src/assets/Promo/2bdbe56056e0c75b6cf3938a6911141a.jpg",
       title: "New Arrivals",
       subtitle: "Latest Fashion",
       buttonText: "Explore"
-    }
+    },
+      {
+      image: "/src/assets/Promo/7274f34d6a776f5d4208ef4a145a8b08.jpg",
+      title: "Tech Gadgets",
+      subtitle: "Innovative Devices",
+      buttonText: "Shop Now"
+    },
+      {
+      image: "/src/assets/Promo/a1fea360e3557739b3275c15e97b13ad.jpg",
+      title: "Home Essentials",
+      subtitle: "Upgrade Your Space",
+      buttonText: "Discover"
+    
+      },
+      {
+      image: "/src/assets/Promo/b945d1c21541e8493c012de14750ec50.jpg",
+      title: "Fitness Gear",
+      subtitle: "Get Active",
+      buttonText: "Shop Now"
+      },
+      {
+      image: "/src/assets/Promo/e7f38e4bb49d0ac977970c38d92c012a.png",
+      title: "Exclusive Offer",
+      subtitle: "Limited Time Only",
+      buttonText: "Shop Now"
+      },
+      {
+      image: "/src/assets/Promo/e476a698096dfcfecdcdd0eba4e7b7ed.jpg",
+      title: "Fashion Trends",
+      subtitle: "Stay Stylish",
+      buttonText: "Explore"
+      },
+      {
+      image: "/src/assets/Promo/1dad9da122a349a14f94094712946d3c.jpg",
+      title: "Summer Sale",
+      subtitle: "Up to 70% Off",
+      buttonText: "Shop Now"
+      },
+      {
+      image: "/src/assets/Promo/guided_tour__dna6wcz8ieie_xlarge.jpg",
+      title: "Travel Essentials",
+      subtitle: "Adventure Awaits",
+      buttonText: "Discover"
+      
+      }
   ];
 
   const displaySlides = images.length > 0 ? images.slice(0, 5).map(img => ({ image: img })) : promotionalSlides;

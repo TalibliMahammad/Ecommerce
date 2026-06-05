@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import Header from '@/Components/Layout/Header'
 import Footer from '@/Pages/Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem, removeItem } from '../../Redux/CreateSlice/CartSlice'
+import { addItem, removeItem, updateQuantity } from '../../Redux/CreateSlice/CartSlice'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
-// import CartAnimation from '../assets/gifs/CartAnimation.mp4'
 import { MdDelete } from "react-icons/md";
+import { FiPlus, FiMinus } from 'react-icons/fi'
 
 const CartPage = () => {
     const DataCart = useSelector((state) => state.cartState.items)
@@ -40,13 +40,13 @@ const CartPage = () => {
             <Header />
             {DataCart.length > 0 ? (
                 <div className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 animate-slide-down">
                         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                             Shopping Cart <span className="text-emerald-600">({DataCart.length})</span>
                         </h1>
                         <button
                             onClick={() => navigate('/')}
-                            className="text-emerald-600 hover:text-emerald-700 font-medium text-sm flex items-center gap-1"
+                            className="text-emerald-600 hover:text-emerald-700 font-medium text-sm flex items-center gap-1 transition-colors"
                         >
                             ← Return to Shop
                         </button>
@@ -59,43 +59,52 @@ const CartPage = () => {
                         <span className="col-span-2 text-right">Subtotal</span>
                     </div>
 
-                    {DataCart.map((item) => (
+                    <div className="space-y-3">
+                      {DataCart.map((item, index) => (
                         <div
                             key={item.id}
-                            className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-2 items-center bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5 mb-4 hover:shadow-md transition"
+                            className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-2 items-center bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-slide-up"
+                            style={{ animationDelay: `${index * 50}ms` }}
                         >
                             <div className="col-span-1 md:col-span-5 flex items-center gap-4">
-                                <img src={item.image} alt={item.title} className="h-20 w-20 sm:h-24 sm:w-24 object-contain rounded-xl bg-gray-50" />
+                                <img src={item.image} alt={item.title} className="h-20 w-20 sm:h-24 sm:w-24 object-contain rounded-xl bg-gray-50 hover:scale-105 transition-transform duration-300" />
                                 <span className="font-medium text-gray-900 line-clamp-2">{item.title}</span>
                             </div>
                             <span className="md:col-span-2 text-center font-semibold text-gray-700">
                                 ${typeof item.price === 'number' ? item.price.toFixed(2) : '0.00'}
                             </span>
-                            <div className="md:col-span-3 flex justify-center items-center gap-3">
+                            <div className="md:col-span-3 flex justify-center items-center gap-2 bg-gray-50 rounded-xl p-2">
                                 <button
                                     type="button"
-                                    onClick={() => dispatch(removeItem(item.id))}
-                                    className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 font-medium text-gray-700 transition"
+                                    onClick={() => {
+                                      dispatch(updateQuantity({ id: item.id, quantity: Math.max(1, item.quantity - 1) }));
+                                    }}
+                                    className="w-9 h-9 rounded-lg bg-white hover:bg-emerald-50 text-gray-700 hover:text-emerald-600 font-bold transition-all duration-200 flex items-center justify-center border border-gray-200 hover:border-emerald-300"
                                 >
-                                    −
+                                    <FiMinus className="w-4 h-4" />
                                 </button>
-                                <span className="font-semibold text-gray-900 min-w-[2ch]">{item.quantity}</span>
+                                <span className="font-bold text-gray-900 min-w-[2.5ch] text-center">{item.quantity}</span>
                                 <button
                                     type="button"
-                                    onClick={() => dispatch(addItem(item))}
-                                    className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 font-medium text-gray-700 transition"
+                                    onClick={() => {
+                                      dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }));
+                                    }}
+                                    className="w-9 h-9 rounded-lg bg-white hover:bg-emerald-50 text-gray-700 hover:text-emerald-600 font-bold transition-all duration-200 flex items-center justify-center border border-gray-200 hover:border-emerald-300"
                                 >
-                                    +
+                                    <FiPlus className="w-4 h-4" />
                                 </button>
                             </div>
-                            <div className="md:col-span-2 flex justify-end md:justify-between items-center gap-2">
+                            <div className="md:col-span-2 flex justify-end md:justify-between items-center gap-3">
                                 <span className="font-bold text-gray-900">
                                     ${typeof item.totalPrice === 'number' ? item.totalPrice.toFixed(2) : '0.00'}
                                 </span>
                                 <button
                                     type="button"
-                                    onClick={() => dispatch(removeItem(item.id))}
-                                    className="p-2 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition"
+                                    onClick={() => {
+                                      dispatch(removeItem(item.id));
+                                      toast.info('Item removed from cart');
+                                    }}
+                                    className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 hover:scale-110 transition-all duration-200 border border-red-200"
                                     aria-label="Remove"
                                 >
                                     <MdDelete className="size-5" />
@@ -103,6 +112,10 @@ const CartPage = () => {
                             </div>
                         </div>
                     ))}
+                    </div>
+
+                  
+                    
 
                     <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="space-y-4">

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addItem, removeItem } from '../../Redux/CreateSlice/CartSlice'
 import DetailPage from '@/Components/Layout/DetailPage';
 import { useNavigate } from 'react-router-dom';
+import { FaCartArrowDown } from "react-icons/fa";
+
 
 const CartButton = ({ item, className  }) => {
 
@@ -29,9 +31,9 @@ const CartButton = ({ item, className  }) => {
       <div className={``}>
         <button
           onClick={handleCart}
-          className={` group-hover:opacity-100  w-full text-center px-4 py-2 transition-opacity duration-300 ${isCart ? 'bg-black' : 'bg-red-500'} text-white ${className}`}
+          className={`text-2xl ${isCart ? 'text-red-500' : 'text-green-800 hover:text-red-500'} ${className}`}  
         >
-          {isCart ? 'Remove from Cart' : 'Add to Cart'}
+        <FaCartArrowDown size={30} />
         </button>
       </div>
 

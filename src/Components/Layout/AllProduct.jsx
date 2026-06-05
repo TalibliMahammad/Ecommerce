@@ -41,29 +41,28 @@ const AllProduct = () => {
               key={item.id}
               className="flex flex-col rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 h-[340px] w-full max-w-[280px] overflow-hidden group relative bg-white"
             >
-              <div
-                onClick={() => navigate(`/DetailPage/${item.id}`)}
-                className="relative h-[190px] w-full cursor-pointer bg-white flex items-center justify-center"
-              >
-                <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full z-10">
-                  -20%
-                </div>
-                <div className="absolute top-2 right-2 z-10">
-                  <HeartButton item={item} />
-                </div>
-                <img
-                  loading="lazy"
-                  className="max-h-full max-w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
-                  src={
-                    item.images?.[0]?.trim() ||
-                    "https://via.placeholder.com/300x300?text=No+Image"
-                  }
-                  alt={item.name}
-                />
-                <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-[88%] lg:left-0 lg:transform-none lg:translate-x-0 lg:w-full lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-auto">
-                  <CartButton item={item} />
-                </div>
-              </div>
+       <div
+  onClick={() => navigate(`/DetailPage/${item.id}`)}
+  className="relative h-[190px] w-full cursor-pointer bg-white flex items-center justify-center"
+>
+  <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full z-10">
+    -20%
+  </div>
+
+  <div className="absolute top-2 right-2 z-10">
+    <HeartButton item={item} />
+  </div>
+
+  <img
+    loading="lazy"
+    className="max-h-full max-w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+    src={
+      item.images?.[0]?.trim() ||
+      "https://via.placeholder.com/300x300?text=No+Image"
+    }
+    alt={item.name}
+  />
+</div>
 
               <div className="p-3 flex flex-col gap-1">
                 <h3 className="text-base font-medium text-gray-900 truncate">
@@ -82,6 +81,9 @@ const AllProduct = () => {
                     {" "}
                     {item.rating} {getStars(item.rating || 0)}{" "}
                   </span>
+                    <div className="absolute bottom-0 right-2 z-10">
+    <CartButton item={item} />
+  </div>
                 </div>
               </div>
             </div>

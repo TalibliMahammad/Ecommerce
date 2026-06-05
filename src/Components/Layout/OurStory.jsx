@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '@/Components/Layout/Header';
 import Footer from '@/Pages/Footer';
-import team from '../../assets/gifs/3917525-uhd_4096_2160_25fps.mp4'
+
 
 
 const AboutUs = () => {
@@ -27,7 +27,7 @@ const AboutUs = () => {
           </div>
           <div className="flex-1">
             <img
-              src={team}
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d29ya2luZyUyMHRlYW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60"
               alt="Our Story"
               className="rounded-lg w-full"
             />

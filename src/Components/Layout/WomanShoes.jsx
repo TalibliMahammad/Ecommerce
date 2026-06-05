@@ -80,7 +80,7 @@ const WomanShoes = () => {
 
 
             <div className="flex flex-col items-center justify-center  mt-[60px]  ">
-                <Link to={`/AllProducts/Woman/Sport-Shoesj`} className="flex flex-col items-center justify-center">
+                <Link to={`/AllProducts/Woman/Sport-Shoes`} className="flex flex-col items-center justify-center">
                     <button className="text-[20px] h-[50px] w-[200px] bg-red-400 text-white hover:bg-black transition duration-500 rounded-[10px]">
                         View All
                     </button>

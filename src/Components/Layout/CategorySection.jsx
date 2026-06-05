@@ -145,49 +145,6 @@ const CategorySection = () => {
           ))
         )}
       </div>
-
-      {/* Featured Categories Sidebar (Desktop) */}
-      <div className="hidden lg:block">
-        <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-          <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-            <span className="mr-2">🛍️</span>
-            Shop by Category
-          </h2>
-          <div className="space-y-2">
-            {categories.map((category) => (
-              <div key={category.key} className="border-b border-gray-50 last:border-0">
-                <button
-                  onClick={() => handleToggleMenu(category.key)}
-                  className="w-full flex items-center justify-between py-3 px-2 text-left hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                >
-                  <span className="flex items-center">
-                    <span className="mr-3">{category.icon}</span>
-                    <span className="font-medium text-gray-700">{category.title}</span>
-                  </span>
-                  <MdKeyboardArrowRight
-                    className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
-                      activeMenu === category.key ? 'rotate-90' : ''
-                    }`}
-                  />
-                </button>
-                <div className={`ml-8 overflow-hidden transition-all duration-300 ${
-                  activeMenu === category.key ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  {category.subItems.map((item, subIndex) => (
-                    <button
-                      key={subIndex}
-                      onClick={() => handleCategory(category.key, item)}
-                      className="block w-full text-left py-2 px-2 text-sm text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded transition-colors duration-200"
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

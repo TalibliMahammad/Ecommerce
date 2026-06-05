@@ -3,21 +3,24 @@ import { useDispatch, useSelector } from 'react-redux'
 import Header from '@/Components/Layout/Header'
 import Footer from '@/Pages/Footer'
 import { TbTruckDelivery, TbShieldCheck, TbRefresh, TbStar } from "react-icons/tb";
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { CiShoppingCart } from 'react-icons/ci'
 import { HiCreditCard } from 'react-icons/hi2'
 import { FiMinus, FiPlus } from 'react-icons/fi'
 import HeartButton from '@/Components/Layout/HeartButton'
 import CartButton from '@/Components/Layout/CartButton'
 import { addItem, removeItem } from '@/Redux/CreateSlice/CartSlice'
+import { toast } from 'react-toastify'
 
 const DetailPage = ({ item, className }) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { id } = useParams()
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedColor, setSelectedColor] = useState(0)
   const [selectedSize, setSelectedSize] = useState('M')
   const [quantity, setQuantity] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
 
   const allItems = useSelector((state) => state.fetchData.data) || [];
   const flatItems = Object.values(allItems)
@@ -39,14 +42,23 @@ const DetailPage = ({ item, className }) => {
   const handleAddToCart = () => {
     if (isInCart) {
       dispatch(removeItem(product.id));
+      toast.info('Removed from cart');
     } else {
       dispatch(addItem({ ...product, quantity, selectedColor, selectedSize }));
+      toast.success('Added to cart!');
     }
   }
 
   const handleBuyNow = () => {
-    // Handle buy now logic
-    console.log('Buy now clicked')
+    setIsLoading(true)
+    if (!isInCart) {
+      dispatch(addItem({ ...product, quantity, selectedColor, selectedSize }))
+    }
+    setTimeout(() => {
+      setIsLoading(false)
+      navigate('/Payment')
+      toast.success('Proceeding to payment...')
+    }, 500)
   }
 
   const getRecommendedItems = (currentProduct, allItems) => {
@@ -79,7 +91,7 @@ const DetailPage = ({ item, className }) => {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
         <div className="container mx-auto px-4 py-8">
           {/* Product Section */}
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-12">
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-12 animate-slide-up">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
               {/* Image Gallery */}
               <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 p-8">
@@ -189,10 +201,10 @@ const DetailPage = ({ item, className }) => {
                           <button
                             key={index}
                             onClick={() => setSelectedColor(index)}
-                            className={`w-10 h-10 rounded-full border-4 transition-all duration-300 ${
+                            className={`w-10 h-10 rounded-full border-4 transition-all duration-300 transform hover:scale-110 ${
                               selectedColor === index
-                                ? 'border-emerald-500 scale-110'
-                                : 'border-gray-200 hover:border-gray-300'
+                                ? 'border-emerald-500 scale-110 ring-2 ring-emerald-200 shadow-lg'
+                                : 'border-gray-200 hover:border-emerald-300'
                             }`}
                             style={{ backgroundColor: color }}
                           />
@@ -210,10 +222,10 @@ const DetailPage = ({ item, className }) => {
                           <button
                             key={size}
                             onClick={() => setSelectedSize(size)}
-                            className={`px-4 py-2 rounded-xl border-2 font-semibold transition-all duration-300 ${
+                            className={`px-5 py-2 rounded-xl border-2 font-bold transition-all duration-300 transform hover:scale-105 ${
                               selectedSize === size
-                                ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                : 'border-gray-200 text-gray-700 hover:border-gray-300'
+                                ? 'border-emerald-500 bg-emerald-50 text-emerald-700 scale-105 shadow-md'
+                                : 'border-gray-200 text-gray-700 hover:border-emerald-300'
                             }`}
                           >
                             {size}
@@ -229,45 +241,57 @@ const DetailPage = ({ item, className }) => {
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-3">Quantity</h3>
                       <div className="flex items-center gap-4">
-                        <div className="flex items-center border-2 border-gray-200 rounded-xl">
+                        <div className="flex items-center border-2 border-gray-200 rounded-xl hover:border-emerald-400 transition-colors duration-300 shadow-sm">
                           <button
                             onClick={() => handleQuantityChange(-1)}
-                            className="p-3 hover:bg-gray-100 rounded-l-xl transition-colors"
+                            className="p-3 hover:bg-emerald-50 rounded-l-xl transition-all duration-200 text-gray-700 hover:text-emerald-600 font-bold"
                           >
                             <FiMinus className="w-5 h-5" />
                           </button>
-                          <span className="px-6 py-3 font-semibold text-lg">{quantity}</span>
+                          <span className="px-6 py-3 font-bold text-lg text-gray-900 min-w-[60px] text-center">{quantity}</span>
                           <button
                             onClick={() => handleQuantityChange(1)}
-                            className="p-3 hover:bg-gray-100 rounded-r-xl transition-colors"
+                            className="p-3 hover:bg-emerald-50 rounded-r-xl transition-all duration-200 text-gray-700 hover:text-emerald-600 font-bold"
                           >
                             <FiPlus className="w-5 h-5" />
                           </button>
                         </div>
-                        <span className="text-gray-600">
-                          Total: ${(product.price * quantity).toFixed(2)}
+                        <span className="text-gray-600 font-semibold">
+                          Total: <span className="text-emerald-600 text-lg">${(product.price * quantity).toFixed(2)}</span>
                         </span>
                       </div>
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4 pt-2">
                       <button
                         onClick={handleBuyNow}
-                        className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white py-4 px-8 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                        disabled={isLoading}
+                        className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 text-white py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:shadow-md flex items-center justify-center gap-2 btn-hover group relative overflow-hidden"
                       >
-                        <HiCreditCard className="w-6 h-6" />
-                        Buy Now
+                        <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        {isLoading ? (
+                          <div className="flex items-center gap-2">
+                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                            Processing...
+                          </div>
+                        ) : (
+                          <>
+                            <HiCreditCard className="w-6 h-6 group-hover:animate-bounce-soft" />
+                            Buy Now
+                          </>
+                        )}
                       </button>
                       <button
                         onClick={handleAddToCart}
-                        className={`flex-1 py-4 px-8 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 ${
+                        className={`flex-1 py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:shadow-md flex items-center justify-center gap-2 btn-hover group relative overflow-hidden ${
                           isInCart
-                            ? 'bg-gray-800 hover:bg-gray-900 text-white'
-                            : 'bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-900 hover:to-black text-white'
+                            ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white'
+                            : 'bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white'
                         }`}
                       >
-                        <CiShoppingCart className="w-6 h-6" />
+                        <div className={`absolute inset-0 transition-opacity duration-300 ${isInCart ? 'bg-red-600 opacity-0 group-hover:opacity-20' : 'bg-black opacity-0 group-hover:opacity-10'}`}></div>
+                        <CiShoppingCart className={`w-6 h-6 group-hover:scale-110 transition-transform`} />
                         {isInCart ? 'Remove from Cart' : 'Add to Cart'}
                       </button>
                     </div>

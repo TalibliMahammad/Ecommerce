@@ -51,7 +51,6 @@ export default function Electronics() {
         </div>
         <div className="flex flex-col lg:flex-row items-center justify-between lg:justify-start gap-5 lg:gap-20 mt-4">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Laptops</h2>
-          <Timer />
         </div>
       </div>
 
@@ -78,7 +77,7 @@ export default function Electronics() {
                         <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold py-1 px-2 rounded-full z-10">-20%</div>
                         <div className="absolute top-2 right-2 z-10"><HeartButton item={item} /></div>
                         <img loading="lazy" decoding="async" className="max-h-full max-w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105" src={item.images?.[0]?.trim() || 'https://via.placeholder.com/300x300?text=No+Image'} alt="Product" />
-                        <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-[88%] lg:left-0 lg:transform-none lg:translate-x-0 lg:w-full lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-auto"><CartButton item={item} /></div>
+                       
                       </div>
 
                       <div className="p-3 flex flex-col gap-1">
@@ -88,6 +87,8 @@ export default function Electronics() {
                         <div className="cursor-pointer text-yellow-400 text-sm flex">
                           <span className="flex gap-1">{item.rating} {getStars(item.rating || 0)}</span>
                         </div>
+                         <div className="absolute bottom-2 right-2 z-10">
+                        <CartButton item={item} /></div>
                       </div>
                     </div>
                   </SwiperSlide>
