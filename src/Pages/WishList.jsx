@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearWishList, heartsFunc } from '../Redux/CreateSlice/WishList'
 import { FaHeart } from 'react-icons/fa'
 import CartButton from '@/Components/Layout/CartButton'
-import wishEmpty from '../assets/gifs/emptyWish.mp4'
+import wishEmpty from '/assets/gifs/emptyWish.mp4'
 import { Result } from 'antd'
 import { addItem } from '../Redux/CreateSlice/CartSlice'
 
