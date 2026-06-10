@@ -1,13 +1,5 @@
-# React + Vite
+<img width="1903" height="931" alt="image" src="https://github.com/user-attachments/assets/878546bf-16b6-435d-8646-a06bb5d35662" />
+<img width="1903" height="931" alt="image" src="https://github.com/user-attachments/assets/0c6cb897-1fa5-440e-beb9-7f00f8620e95" />
+<img width="1903" height="931" alt="image" src="https://github.com/user-attachments/assets/31123897-eac1-4897-b028-9df0be1474f2" />
+<img width="1903" height="931" alt="image" src="https://github.com/user-attachments/assets/6ae506d7-b462-4564-aa69-367c972bdb59" />
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# Ecommerce
